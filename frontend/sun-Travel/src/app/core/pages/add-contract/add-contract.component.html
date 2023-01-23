@@ -1,0 +1,187 @@
+<h1><b>ADD CONTRACT</b></h1>
+<mat-tab-group>
+    <!-- add new room type and contrcat form -->
+    <mat-tab label="New Room Type">
+        <form [formGroup]="newTypeAddContractForm" id="addNewTypeForm" (ngSubmit)="saveNewType()">
+            <div class="grid-container-1">
+                <div class="card">
+                    <!-- selecet the hotel name -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Hotel Name</mat-label>
+                        <mat-select formControlName="name">
+                            <mat-option *ngFor="let hotel of hotelList"
+                                value="{{hotel.name}}">{{hotel.name}}</mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('name')?.invalid && newTypeAddContractForm.get('name')?.touched"><b>Select
+                                Name</b></mat-error>
+                    </mat-form-field>
+                    <!-- get room type name -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Room Type</mat-label>
+                        <input matInput formControlName="type">
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('type')?.invalid && newTypeAddContractForm.get('type')?.touched"><b>Invalid
+                                Type</b></mat-error>
+                    </mat-form-field>
+                    <!-- select the start date -->
+                    <mat-form-field>
+                        <mat-label>Choose a start date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="start" [min]="date"
+                            (ngModelChange)="updateStartDate('newType')">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('start')?.invalid && newTypeAddContractForm.get('start')?.touched"><b>Select
+                                Date</b></mat-error>
+                    </mat-form-field>
+                    <!-- select the end date -->
+                    <mat-form-field>
+                        <mat-label>Choose a end date</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="end" [min]="newStartDate">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('end')?.invalid && newTypeAddContractForm.get('end')?.touched"><b>Select
+                                Date</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get the price -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Price</mat-label>
+                        <input type="number" matInput formControlName="price">
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('price')?.invalid && newTypeAddContractForm.get('price')?.touched"><b>Invalid
+                                Price</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get the max adults -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Max Adules</mat-label>
+                        <input type="number" matInput formControlName="maxAdults">
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('maxAdults')?.invalid && newTypeAddContractForm.get('maxAdults')?.touched"><b>Invalid
+                                Maximum Adules</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get the number of rooms -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Number of rooms</mat-label>
+                        <input type="number" matInput formControlName="numRoom">
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('numRoom')?.invalid && newTypeAddContractForm.get('numRoom')?.touched"><b>Invalid
+                                Number Of Room</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get markup -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Markup</mat-label>
+                        <input type="number" matInput formControlName="markup">
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('markup')?.invalid && newTypeAddContractForm.get('markup')?.touched"><b>Invalid
+                                Markup value</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get description -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Description" required formControlName="description"
+                            cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="20"> </textarea>
+                        <mat-error
+                            *ngIf="newTypeAddContractForm.get('description')?.invalid && newTypeAddContractForm.get('description')?.touched"><b>Invalid
+                                Description</b></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button mat-raised-button color="primary" class="button"
+                [disabled]="newTypeAddContractForm.invalid || isPendding">Add</button>
+        </form>
+    </mat-tab>
+    <!-- exist room type to add contrcat form -->
+    <mat-tab label="Existing Room Type">
+        <form [formGroup]="existTypeAddContractForm" id="addExistTypeForm" (ngSubmit)="saveExistType()">
+            <div class="grid-container-1">
+                <div class="card">
+                    <!-- selecet the hotel name -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Hotel Name</mat-label>
+                        <mat-select (selectionChange)="update()" formControlName="name">
+                            <mat-option *ngFor="let hotel of hotelList"
+                                value="{{hotel.name}}">{{hotel.name}}</mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="existTypeAddContractForm.get('name')?.invalid && existTypeAddContractForm.get('name')?.touched"><b>Select
+                                Name</b></mat-error>
+                    </mat-form-field>
+                    <!-- selecet the room type under under hotel name -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Room Type</mat-label>
+                        <mat-select formControlName="type">
+                            <mat-option *ngFor="let roomType of typeList"
+                                value="{{roomType.type}}">{{roomType.type}}</mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="existTypeAddContractForm.get('type')?.invalid && existTypeAddContractForm.get('type')?.touched"><b>Select
+                                Type</b></mat-error>
+                    </mat-form-field>
+                    <!-- select the start date -->
+                    <mat-form-field>
+                        <mat-label>Choose a start date</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="start" [min]="date"
+                            (ngModelChange)="updateStartDate('existType')">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <mat-error
+                            *ngIf="existTypeAddContractForm.get('start')?.invalid && existTypeAddContractForm.get('start')?.touched"><b>Select
+                                Start Date</b></mat-error>
+                    </mat-form-field>
+                    <!-- select the end date -->
+                    <mat-form-field>
+                        <mat-label>Choose a end date</mat-label>
+                        <input matInput [matDatepicker]="picker3" formControlName="end" [min]="existStartDate">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                        <mat-error
+                            *ngIf="existTypeAddContractForm.get('end')?.invalid && existTypeAddContractForm.get('end')?.touched"><b>Select
+                                End Date</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get the price -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Price</mat-label>
+                        <input type="number" matInput formControlName="price">
+                        <mat-error
+                            *ngIf="existTypeAddContractForm.get('price')?.invalid && existTypeAddContractForm.get('price')?.touched"><b>Invalid
+                                Price</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get the number of rooms -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Number of rooms</mat-label>
+                        <input type="number" matInput formControlName="numRoom">
+                        <mat-error
+                            *ngIf="existTypeAddContractForm.get('numRoom')?.invalid && existTypeAddContractForm.get('numRoom')?.touched"><b>Invalid
+                                Number of Room</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get markup -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Markup</mat-label>
+                        <input type="number" matInput formControlName="markup">
+                        <mat-error
+                            *ngIf="existTypeAddContractForm.get('markup')?.invalid && existTypeAddContractForm.get('markup')?.touched"><b>Invalid
+                                Markup value</b></mat-error>
+                    </mat-form-field>
+                    <!-- Get description -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Description" formControlName="description" cdkTextareaAutosize
+                            cdkAutosizeMinRows="5" cdkAutosizeMaxRows="20"> </textarea>
+                        <mat-error
+                            *ngIf="existTypeAddContractForm.get('description')?.invalid && existTypeAddContractForm.get('numRoom')?.touched"><b>Invalid
+                                Description</b></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button mat-raised-button color="primary" class="button"
+                [disabled]="existTypeAddContractForm.invalid || isPendding">Add</button>
+        </form>
+    </mat-tab>
+</mat-tab-group>
+<app-spinner *ngIf="isSpinne"></app-spinner>

@@ -1,0 +1,31 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+button {
+  margin: 1%;
+}
+.example-icon {
+  display: none;
+}
+div {
+  background-color: rgb(61, 61, 61);
+  width: 300px;
+  margin-top: -3%;
+}
+.slider {
+  z-index: 10;
+  position: fixed;
+}
+a {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  .button-panel {
+    display: none;
+  }
+  .example-icon {
+    display: block;
+  }
+}

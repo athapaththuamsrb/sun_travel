@@ -1,0 +1,14 @@
+.bad {
+  background-color: red;
+}
+.success {
+  background-color: green;
+}
+.normal {
+  background-color: white;
+  max-width: 150%;
+}
+.padding {
+  padding: 0% 20% 0% 20%;
+  margin: 5%;
+}

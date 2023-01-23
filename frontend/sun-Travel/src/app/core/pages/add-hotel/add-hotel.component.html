@@ -1,0 +1,64 @@
+<h1><b>ADD HOTEL</b></h1>
+<!-- form for add hotel -->
+<form [formGroup]="hotelAddForm" id="addHotelForm" (ngSubmit)="save()">
+    <div class="grid-container">
+        <!-- Get hotel name -->
+        <div class="card">
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput required formControlName="name" />
+                <mat-error *ngIf="hotelAddForm.get('name')?.invalid && hotelAddForm.get('name')?.touched"><b>Invalid
+                        Name</b></mat-error>
+            </mat-form-field>
+            <!-- Get location(Distric) -->
+            <mat-form-field appearance="fill">
+                <mat-label>Location</mat-label>
+                <mat-select required formControlName="location">
+                    <mat-option value="Colombo">Colombo</mat-option>
+                    <mat-option value="Gampaha">Gampaha</mat-option>
+                    <mat-option value="Kalutara">Kalutara</mat-option>
+                    <mat-option value="Kandy">Kandy</mat-option>
+                    <mat-option value="Matale">Matale</mat-option>
+                    <mat-option value="NuwaraEliya">Nuwara Eliya</mat-option>
+                    <mat-option value="Galle">Galle</mat-option>
+                    <mat-option value="Matara">Matara</mat-option>
+                    <mat-option value="Hambantota">Hambantota</mat-option>
+                    <mat-option value="Jaffna">Jaffna</mat-option>
+                    <mat-option value="Kilinochchi">Kilinochchi</mat-option>
+                    <mat-option value="Mannar">Mannar</mat-option>
+                    <mat-option value="Vavuniya">Vavuniya</mat-option>
+                    <mat-option value="Mullaitivu">Mullaitivu</mat-option>
+                    <mat-option value="Batticaloa">Batticaloa</mat-option>
+                    <mat-option value="Ampara">Ampara</mat-option>
+                    <mat-option value="Trincomalee">Trincomalee</mat-option>
+                    <mat-option value="Kurunegala">Kurunegala</mat-option>
+                    <mat-option value="Puttalam">Puttalam</mat-option>
+                    <mat-option value="Anuradhapura">Anuradhapura</mat-option>
+                    <mat-option value="Polonnaruwa">Polonnaruwa</mat-option>
+                    <mat-option value="Badulla">Badulla</mat-option>
+                    <mat-option value="Moneragala">Moneragala</mat-option>
+                    <mat-option value="Ratnapura">Ratnapura</mat-option>
+                    <mat-option value="Kegalle">Kegalle</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="hotelAddForm.get('location')?.invalid && hotelAddForm.get('location')?.touched"><b>Select
+                        the location</b></mat-error>
+            </mat-form-field>
+            <!-- Get contact number -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Telephone</mat-label>
+                <span matPrefix>+94 &nbsp;</span>
+                <input type="tel" matInput required placeholder="123456789" formControlName="contactNumber" />
+                <mat-icon matSuffix>mode_edit</mat-icon>
+                <mat-error
+                    *ngIf="hotelAddForm.get('contactNumber')?.invalid && hotelAddForm.get('contactNumber')?.touched"><b>Invalid
+                        Contact Number</b></mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <button mat-raised-button class="not-allowed button" [disabled]="hotelAddForm.invalid||isPendding">
+        Add
+    </button>
+</form>
+<app-spinner *ngIf="isSpinne"></app-spinner>

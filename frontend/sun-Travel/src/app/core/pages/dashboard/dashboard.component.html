@@ -1,0 +1,165 @@
+<h1><b>DASHBOARD</b></h1>
+<form [formGroup]="roomsSearchForm" id="searchForm" (ngSubmit)="searchRooms()">
+    <div class="grid-container">
+        <div class="card-2">
+            <mat-form-field>
+                <mat-label>Choose a start date</mat-label>
+                <input matInput [matDatepicker]="start" (ngModelChange)="updateStartDate()" formControlName="start"
+                    [min]="date">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                <mat-datepicker #start></mat-datepicker>
+                <mat-error
+                    *ngIf="roomsSearchForm.get('start')?.invalid && roomsSearchForm.get('start')?.touched"><b>Select
+                        Start Date</b></mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Choose a end date</mat-label>
+                <input matInput [matDatepicker]="end" formControlName="end" [min]="startDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+                <mat-datepicker #end></mat-datepicker>
+                <mat-error *ngIf="roomsSearchForm.get('end')?.invalid && roomsSearchForm.get('end')?.touched"><b>Select
+                        End Date</b></mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Location</mat-label>
+                <mat-select formControlName="location">
+                    <mat-option value="Colombo">Colombo</mat-option>
+                    <mat-option value="Gampaha">Gampaha</mat-option>
+                    <mat-option value="Kalutara">Kalutara</mat-option>
+                    <mat-option value="Kandy">Kandy</mat-option>
+                    <mat-option value="Matale">Matale</mat-option>
+                    <mat-option value="Nuwara Eliya">Nuwara Eliya</mat-option>
+                    <mat-option value="Galle">Galle</mat-option>
+                    <mat-option value="Matara">Matara</mat-option>
+                    <mat-option value="Hambantota">Hambantota</mat-option>
+                    <mat-option value="Jaffna">Jaffna</mat-option>
+                    <mat-option value="Kilinochchi">Kilinochchi</mat-option>
+                    <mat-option value="Mannar">Mannar</mat-option>
+                    <mat-option value="Vavuniya">Vavuniya</mat-option>
+                    <mat-option value="Mullaitivu">Mullaitivu</mat-option>
+                    <mat-option value="Batticaloa">Batticaloa</mat-option>
+                    <mat-option value="Ampara">Ampara</mat-option>
+                    <mat-option value="Trincomalee">Trincomalee</mat-option>
+                    <mat-option value="Kurunegala">Kurunegala</mat-option>
+                    <mat-option value="Puttalam">Puttalam</mat-option>
+                    <mat-option value="Anuradhapura">Anuradhapura</mat-option>
+                    <mat-option value="Polonnaruwa">Polonnaruwa</mat-option>
+                    <mat-option value="Badulla">Badulla</mat-option>
+                    <mat-option value="Moneragala">Moneragala</mat-option>
+                    <mat-option value="Ratnapura">Ratnapura</mat-option>
+                    <mat-option value="Kegalle">Kegalle</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="roomsSearchForm.get('location')?.invalid && roomsSearchForm.get('location')?.touched"><b>Select
+                        Location</b></mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="add-input">
+        <form class="grid-container" #addPair="ngForm" (ngSubmit)="addCard(addPair.value);addPair.reset()">
+            <div class="card-2">
+                <mat-form-field appearance="fill">
+                    <mat-label>Number of rooms</mat-label>
+                    <input type="number" matInput name="numberRoom" min="1" ngModel required #numberRoom="ngModel">
+                    <mat-error *ngIf="!numberRoom.valid && numberRoom.touched"><b>Invalid
+                            Number Of Room</b></mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Maximum Adults</mat-label>
+                    <input type="number" matInput name="maxAdults" min="1" ngModel required #maxAdults="ngModel">
+                    <mat-error *ngIf="!maxAdults.valid && maxAdults.touched"><b>Invalid
+                            Maximum Number Of Adules </b></mat-error>
+                </mat-form-field>
+            </div>
+            <button class="btn" mat-fab type="submit" class="button"
+                [disabled]="isPendding||!maxAdults.valid||!numberRoom.valid">
+                <mat-icon>
+                    add
+                </mat-icon>
+            </button>
+        </form>
+        <br>
+        <table mat-table class="mat-elevation-z8" [dataSource]="pairSource">
+
+            <ng-container matColumnDef="numberRoom">
+                <th mat-header-cell *matHeaderCellDef>Number of Room</th>
+                <td mat-cell *matCellDef="let item"> {{item.numberRoom}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="maxAdults">
+                <th mat-header-cell *matHeaderCellDef>Maximum Adults</th>
+                <td mat-cell *matCellDef="let item"> {{item.maxAdults}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>delete</th>
+                <td mat-cell *matCellDef="let i = index">
+                    <button mat-icon-button class="removeCart" class="button" [disabled]="isPendding"
+                        (click)="removeCart(i)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="pairTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: pairTableColumns;"></tr>
+        </table>
+    </div>
+
+    <br>
+    <button class="btn" mat-raised-button class="button"
+        [disabled]="roomsSearchForm.invalid || pairs.length==0 ||isPendding">Search</button>
+</form>
+<!-- show the contract list in the table -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    <!-- id Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element ;index as i"> {{i+1}} </td>
+    </ng-container>
+
+    <!-- Hotel Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Hotel Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Room Type Column -->
+    <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Room Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price</th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <!-- Number of Room Column -->
+    <ng-container matColumnDef="count">
+        <th mat-header-cell *matHeaderCellDef> Number of Rooms </th>
+        <td mat-cell *matCellDef="let element"> {{element.count}} </td>
+    </ng-container>
+
+    <!-- Maximum Number of Adults Column -->
+    <ng-container matColumnDef="maxAdults">
+        <th mat-header-cell *matHeaderCellDef> Maximum Number of Adults </th>
+        <td mat-cell *matCellDef="let element"> {{element.maxAdults}} </td>
+    </ng-container>
+    <ng-container matColumnDef="viewMore">
+        <th mat-header-cell *matHeaderCellDef> View More </th>
+        <td mat-cell *matCellDef="let element"> <button mat-button
+                (click)="openDialog(element.name,element.type,element.price,element.count,element.maxAdults,element.startContract,element.endContract,element.description)"><mat-icon>
+                    expand_circle_down
+                </mat-icon></button> </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<app-spinner *ngIf="isSpinne"></app-spinner>

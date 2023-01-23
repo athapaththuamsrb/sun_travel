@@ -1,0 +1,29 @@
+<p>
+  <mat-toolbar class="dark">
+    <!-- menu button  -->
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+      (click)="sliderState=!sliderState">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <img src="assets/sun.png" alt="" srcset="">
+    <span><b><i>SUN TRAVELS</i></b> </span>
+    <span class="example-spacer"></span>
+    <!-- button group in the nav bar -->
+    <button class="button-panel button" mat-raised-button routerLink="/dashboard">Dashboard</button>
+    <button class="button-panel button" mat-raised-button routerLink="/addHotel">Add Hotel</button>
+    <button class="button-panel button" mat-raised-button routerLink="/addContract">Add Contract</button>
+    <button class="button-panel button" mat-raised-button routerLink="/viewContract">View Contract</button>
+  </mat-toolbar>
+</p>
+<!-- slider -->
+<div *ngIf="sliderState" class="slider" [@slider]>
+  <mat-list>
+    <mat-list-item><a mat-raised-button (click)="sliderState=false"
+        routerLink="/dashboard">Dashboard</a></mat-list-item>
+    <mat-list-item><a mat-raised-button (click)="sliderState=false" routerLink="/addHotel">Add Hotel</a></mat-list-item>
+    <mat-list-item><a mat-raised-button (click)="sliderState=false" routerLink="/addContract">Add
+        Contract</a></mat-list-item>
+    <mat-list-item><a mat-raised-button (click)="sliderState=false" routerLink="/viewContract">View
+        Contract</a></mat-list-item>
+  </mat-list>
+</div>

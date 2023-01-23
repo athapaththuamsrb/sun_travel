@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.dark {
+  background-color: rgb(61, 61, 61);
+  color: white;
+}
+.card {
+  background-color: rgba(62, 62, 62, 0.507);
+  padding: 2% 3% 1% 2%;
+  margin-bottom: 1%;
+  margin-right: 1%;
+  border-radius: 20px;
+}
+.button {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  background-color: rgb(30, 26, 26) !important;
+  color: rgb(255, 255, 255) !important;
+}
+button:disabled {
+  background-color: rgb(205, 202, 202) !important;
+}

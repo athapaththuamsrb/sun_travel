@@ -1,0 +1,12 @@
+<div class="{{color}}">
+    <h1 mat-dialog-title>STATUS</h1>
+    <!-- msg that model want to show -->
+    <div mat-dialog-content>
+        {{data.msg}}
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">No</button>
+        <!-- pass id when we click button -->
+        <button mat-button [mat-dialog-close]="data.id" cdkFocusInitial>Ok</button>
+    </div>
+</div>
