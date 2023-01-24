@@ -60,6 +60,9 @@ public class ContractService
         else
         {
             Contract contract1=contract.get();
+            if(contract1.getIsExpired()){//check is it already expire if is it return false
+                return false;
+            }
             contract1.setIsExpired( true );//set to expired
             contractRepository.save( contract1 );//update the database
             return true;

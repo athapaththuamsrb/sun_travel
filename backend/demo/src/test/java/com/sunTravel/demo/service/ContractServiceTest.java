@@ -78,6 +78,18 @@ class ContractServiceTest
 
     }
     @Test
+    void delete_fail_tryToDeleteAlreadyExpiredOne()
+    {
+        ContractDto contractDto=new ContractDto("c0a80214-85c5-1b38-8185-c58253ff0003",null,null,null,null,null,null,5,"xx",null);
+        Hotel hotel=new Hotel("","Hilton","Colombo","0768294279",new ArrayList<RoomType>() );
+        RoomType roomType=new RoomType("",hotel,"single room",2,new ArrayList<>());
+        Contract contract=new Contract("c0a80214-85c5-1b38-8185-c58253ff0003",roomType,new Date("2023/01/23"),new Date("2023/02/28") , BigDecimal.valueOf( 45000 ),100 ,5,"xx",true);
+
+        BDDMockito.given( contractRepository.findById(contractDto.getId())).willReturn(Optional.of(contract));
+        assertEquals(false,contractService.delete(contractDto.getId()) );
+
+    }
+    @Test
     void isValidateStartAndEndDate_fail()
     {
         Hotel hotel=new Hotel("c0a83414-85c3-1656-8185-c3175da70000","Hilton","Colombo","0768294279",new ArrayList<RoomType>() );
