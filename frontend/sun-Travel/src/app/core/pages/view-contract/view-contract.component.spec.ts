@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ViewContractComponent } from './view-contract.component';
 
 describe('ViewContractComponent', () => {
@@ -16,7 +17,7 @@ describe('ViewContractComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatDialogModule, HttpClientModule, MatFormFieldModule, MatSelectModule, MatFormFieldModule,
-        MatInputModule, ReactiveFormsModule, MatTableModule, BrowserAnimationsModule],
+        MatInputModule, ReactiveFormsModule, MatTableModule, BrowserAnimationsModule, FontAwesomeModule],
       declarations: [ViewContractComponent]
     })
       .compileComponents();

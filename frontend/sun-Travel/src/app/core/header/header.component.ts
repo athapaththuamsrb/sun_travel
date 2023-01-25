@@ -1,5 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { faSun } from '@fortawesome/free-solid-svg-icons';
 
 /*For working drop menu to add angular animation*/
 @Component({
@@ -14,6 +15,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
   ])]
 })
 export class HeaderComponent implements OnInit {
+  sunIcon = faSun;
   sliderState = false;
   public innerWidth: any;
   /*reloading and in the start this funtion run and load the data*/

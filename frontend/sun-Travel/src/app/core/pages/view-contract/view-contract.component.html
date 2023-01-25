@@ -31,7 +31,9 @@
 </form>
 <h3 style="color: red;padding: 0.5%;"><b>You can only delete processing contract only</b></h3>
 <mat-form-field>
-    <mat-label>Filter</mat-label>
+    <mat-label>
+        <fa-icon [icon]="searchIcon"></fa-icon>Filter
+    </mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
 </mat-form-field>
 

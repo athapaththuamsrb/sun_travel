@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -10,7 +11,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatToolbarModule, MatIconModule, BrowserAnimationsModule],
+      imports: [MatToolbarModule, MatIconModule, BrowserAnimationsModule, FontAwesomeModule],
       declarations: [HeaderComponent]
     })
       .compileComponents();

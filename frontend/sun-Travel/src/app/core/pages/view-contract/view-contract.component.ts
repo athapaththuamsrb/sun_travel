@@ -8,6 +8,7 @@ import { ModalComponent } from '../../modal/modal.component';
 import { ViewContractDto } from '../../models/ViewContractDto';
 import { ShareService } from '../../services/share/share.service';
 import { HotelService } from '../../services/hotel/hotel.service';
+import { faSearch, faSun } from '@fortawesome/free-solid-svg-icons';
 
 export interface PeriodicElement {
   id: string;
@@ -24,9 +25,10 @@ export interface PeriodicElement {
 @Component({
   selector: 'app-view-contract',
   templateUrl: './view-contract.component.html',
-  styleUrls: ['./view-contract.component.css']
+  styleUrls: ['./view-contract.component.css'],
 })
 export class ViewContractComponent implements OnInit {
+  searchIcon = faSearch;
   isSpinne: boolean = false;
   isPendding: boolean = false;
   hotelList: any = this.shareService.hotelList;
