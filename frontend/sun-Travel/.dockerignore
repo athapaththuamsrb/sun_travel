@@ -1,0 +1,8 @@
+/node_modules
+.git
+.editorconfig
+/.vscode/*
+/e2e
+/docs
+.gitignore
+*.zip

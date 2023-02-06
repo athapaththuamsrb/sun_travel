@@ -31,3 +31,6 @@ body {
 button:disabled {
   background-color: rgb(205, 202, 202) !important;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
