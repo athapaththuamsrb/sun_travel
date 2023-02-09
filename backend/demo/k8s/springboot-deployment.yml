@@ -1,0 +1,70 @@
+#Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sun-travel-springboot-k8s-service
+  labels:
+    name: sun-travel-springboot-k8s-deployment
+spec:
+  selector:
+    app: sun-travel-springboot-k8s-deployment
+  ports:
+  - nodePort: 30163
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  type: NodePort  #when deploy to use internet standed way it put here "LoadBalancer"
+---
+#kubernate Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sun-travel-springboot-k8s-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sun-travel-springboot-k8s-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sun-travel-springboot-k8s-deployment
+    spec:
+      containers:
+      - name: sun-travel-springboot-k8s-container
+        image: sun_travel_springboot_k8s_image:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1500m"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MYSQL_CONNECTION
+          valueFrom:
+           configMapKeyRef:
+            name: mysql-config
+            key: host
+        - name: MYSQL_DATABASE
+          valueFrom:
+           configMapKeyRef:
+            name: mysql-config
+            key: db_name
+        - name: MYSQL_DATABASE_TEST
+          valueFrom:
+           configMapKeyRef:
+            name: mysql-config
+            key: db_test_name
+        - name: MYSQL_USER
+          valueFrom:
+           secretKeyRef:
+            name: mysql-db-credentials
+            key: username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+           secretKeyRef:
+            name: mysql-db-credentials
+            key: password
+
+

@@ -1,0 +1,9 @@
+#ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+data:
+  host: mysql
+  db_name: sun_travels
+  db_test_name: sun_travels_test

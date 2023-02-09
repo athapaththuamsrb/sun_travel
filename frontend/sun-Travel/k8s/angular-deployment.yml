@@ -1,0 +1,45 @@
+#Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sun-travel-angular-k8s-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sun-travel-angular-k8s-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sun-travel-angular-k8s-deployment
+    spec:
+      containers:
+      - name: sun-travel-angular-k8s-container
+        image: sun_travel_angular_k8s_image
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          
+        ports:
+        - containerPort: 80
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sun-travel-angular-k8s-service
+  labels:
+   name: sun-travel-angular-k8s-deployment
+spec:
+  selector:
+    app: sun-travel-angular-k8s-deployment
+  ports:
+  - nodePort: 30170
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  type: NodePort #when deploy to use internet standed way it put here "LoadBalancer"
+
