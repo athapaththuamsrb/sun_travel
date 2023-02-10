@@ -72,8 +72,8 @@ spec:
           args: ["--default-authentication-plugin=mysql_native_password"]
           resources:
             limits:
-              memory: "512Mi"
-              cpu: "1500m"
+              memory: "1Gi"
+              cpu: "500m"
           ports:
             - containerPort: 3306
               name: mysql
